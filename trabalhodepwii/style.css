@@ -1,12 +1,41 @@
 html, body,a {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font: inherit;
-  vertical-align: baseline;
-  text-decoration: none;
+    align-items: center;
+    margin-bottom: 50px;
+    padding: 0px;
+    font-size: 30px;
+    font-style: normal;
+    text-align: center;
+    background-color: rgb(182, 210, 219);
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    margin: 2px;
+    justify-content: space-around;
   
 }
+
+.perfilclass{ 
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  flex-wrap: wrap;
+  position: relative;
+  height: inherit;
+  overflow: auto;
+  color: black;
+}
+
+.quemsomosclass{ 
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  flex-wrap: wrap;
+  position: relative;
+  height: inherit;
+  overflow: auto;
+  font-size: 20px;
+  image-rendering: optimizeQuality;
+  size-adjust: 50;
+}
+
 .noticiasclass{ 
     display: flex;
     gap: 10px;
@@ -15,6 +44,9 @@ html, body,a {
     position: relative;
     height: inherit;
     overflow: auto;
+    justify-content: center;
+    text-align: center;
+    color: black;
 }
 
 .ntcclass img {
@@ -23,9 +55,8 @@ html, body,a {
 /*.btncrudclassnao{
     visibility: hidden;
 }*/
-
-
-.btncrudclass{
+.modal_adicionar
+.acoes{
     display: none;
     position: absolute;
     gap: 30px;
@@ -38,11 +69,11 @@ html, body,a {
 /*.btncrudclass:hover{
     visibility:hidden;
 }*/
-.btncrudclass img{
+.acoes img{
     margin: 5px;
   
 }
-.btncrudclass button{
+.acoes button{
     border-radius: 100px ;
     border: none;
 }
@@ -55,7 +86,11 @@ html, body,a {
     background-color: rgb(169, 255, 84);
     opacity: 0.5;
 }
-.btncrudclass button:hover{
+.lerclass{
+    background-color: blue;
+    opacity: 0.5;
+}
+.acoes button:hover{
     opacity: 1;
 }
 .formperfil label{
@@ -63,7 +98,7 @@ display: inline-block;
 }
 .formperfil a{
     visibility: hidden;
-    color: red;
+    color: rgb(143, 42, 42);
 }
 .formperfil-erro a {
     visibility: visible;
@@ -91,7 +126,7 @@ display: inline-block;
 @media (max-width: 700px) {
 
   
-    .btncrudclass {
+    .acoes {
       width: auto!important;
     }
     
@@ -111,7 +146,7 @@ display: inline-block;
       font-size: 12px!important;
     }
   }
-  .modal_adicionar {
+    .modal {
     width: 100vw;
     height: 100vh;
     position: fixed;
@@ -122,51 +157,57 @@ display: inline-block;
     z-index: 999;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
 }
+
 .modal_info {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 40px;
-    background-color: white;
+    background-color: rgb(91, 62, 62);
     border-radius: 10px;
     width: 50%;
     position: relative;
-  }
-  
-  .modal_info label {
-    font-size: 14px;
-    width: 100%;
-  }
-  
-  .modal_info input {
-    width: 100%;
-    outline: none;
-    padding: 5px 10px; 
-    width: 100%;
-    margin-bottom: 20px;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-  }
-  
-  .modal_info button {
-    width: 80%;
-    margin: 10px ;
-    outline: none;
-    border-radius: 20px; 
-    padding: 5px 10px;
-    align-items: center;
+    max-width: 600px;
+}
+.modal_info label {
+  font-size: 14px;
+  width: 100%;
+}
+.modal_info input {
+  width: 100%;
+  outline: none;
+  padding: 5px 10px; 
+  width: 100%;
+  margin-bottom: 20px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  align-items: center;
     justify-content: center;
-    border: none;
-    background-color: rgb(106, 106, 241);
-    color: white;
-  }
-  .modal_info button:hover{
-    background-color: blue;
+}
 
-  }
-  .close_modal {
+.modal_info button {
+  width: 80%;
+  margin: 10px auto;
+  outline: none;
+  border-radius: 20px; 
+  padding: 5px 10px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background-color: rgb(106, 106, 241);
+  color: white;
+}
+.modal_info button:hover{
+  background-color: blue;
+
+}
+
+
+.close_modal {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -177,10 +218,11 @@ display: inline-block;
     color: red;
 }
 
-  .active {
-    display: flex;
-  }
-  @keyframes modal {
+.active {
+    display: flex; 
+}
+
+@keyframes modal {
     from {
         opacity: 0;
         transform: translateY(-50px);
@@ -190,10 +232,11 @@ display: inline-block;
         transform: translateY(0);
     }
 }
-  .active .modal_info {
+
+.active .modal_info {
     animation: modal 0.3s ease-out;
 }
-  
+
 .noticiasclass button{
     text-decoration: none;
     border: none;
@@ -218,20 +261,10 @@ display: inline-block;
   
     .reportagem_info {
       width: 90%!important;
+      max-width: none;
     }
   }
-  .modal_reportagem {
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: none;
-    z-index: 999;
-    align-items: center;
-    justify-content: center;
-}
+
 .reportagem_info {
     display: flex;
     flex-direction: column;
@@ -288,7 +321,7 @@ display: inline-block;
     animation: modal 0.3s ease-out;
 }
 
-.modal_adicionar, .modal_editar {
+.modal_editar {
   display: none;
   position: fixed;
   top: 50%;
@@ -300,10 +333,10 @@ display: inline-block;
   z-index: 1000;
 }
 
-.modal_info, .modal_Editando {
+.modal_info {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 100px;
 }
 
 .close_modal {

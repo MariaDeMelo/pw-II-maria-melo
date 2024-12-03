@@ -42,10 +42,10 @@ if (isset($_POST["editar"])) {
     } else {
         $editar = "UPDATE noticias SET 
                    titulo='$titulo', 
-                   noticias_reportagens='$noticias_reportagens',
+                   noticias_reportagens='$noticias_reportagens', 
                    imagem_noticia='$imagem_noticia', 
-                   titulo_imagem='$titulo_imagem',
-                   WHERE id=$id;";
+                   titulo_imagem='$titulo_imagem' 
+                   WHERE id=$id";
         if (mysqli_query($connect, $editar)) {
             echo "<p>Notícia atualizada com sucesso!</p>";
         } else {
@@ -54,6 +54,7 @@ if (isset($_POST["editar"])) {
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -71,16 +72,15 @@ if (isset($_POST["editar"])) {
     </nav>
 
     <!-- Exibição das Notícias -->
-    <section id="noticiasid" class="noticiasclass">
+    <section id="noticias">
         <?php
         $exibedados = "SELECT * FROM noticias";
         $dadosquery = mysqli_query($connect, $exibedados);
         if ($dadosquery && mysqli_num_rows($dadosquery) > 0) {
             while ($dados = mysqli_fetch_array($dadosquery)) {
                 ?>
-                <div class="noticiasclass" id="noticiasid">
-                    <div class="ntclass" id="ntcid">
-                        
+                <div class="noticia">
+                    <div class="conteudo">
                         <img src="<?php echo $dados["imagem_noticia"]; ?>" alt="<?php echo $dados["titulo_imagem"]; ?>" width="300" height="200">
                         <h3><?php echo $dados["titulo"]; ?></h3>
                         <p><?php echo $dados["noticias_reportagens"]; ?></p>
@@ -88,13 +88,19 @@ if (isset($_POST["editar"])) {
                     <div class="acoes">
                         <!-- Botão de Excluir -->
                         <form method="POST">
-                            <button class="lixeiraclass" type="submit" name="excluir">
+                            <button type="submit" name="excluir">
                                 <img src="imagens/lixeira-de-reciclagem.png" alt="Excluir" width="25" height="25">
                             </button>
                         </form>
-
-                        <button  class="editarclass"
-                            onclick="openModalEditar()">
+                        <!-- Botão de Editar -->
+                        <button  
+                            onclick="openModalEditar(
+                                <?php echo isset($dados['id']) ? "'" . $dados['id'] . "'" : 'null'; ?>, 
+                                    '<?php echo addslashes($dados['titulo'] ?? ''); ?>', 
+                                    '<?php echo addslashes($dados['noticias_reportagens'] ?? ''); ?>', 
+                                    '<?php echo addslashes($dados['imagem_noticia'] ?? ''); ?>', 
+                                    '<?php echo addslashes($dados['titulo_imagem'] ?? ''); ?>'
+                                    )">
                             <img src="imagens/arquivo-e-pasta.png" alt="Editar" width="25" height="25">
                         </button>
 
@@ -106,35 +112,35 @@ if (isset($_POST["editar"])) {
         ?>
     </section>
 
-    <div div class="adicionarclass" id="adicionarid">
-        <button class="addbtnclass" id="btncanceladd"onclick="openaModalAdd()">+</button>
-    </div>
+    <!-- Botão de Adicionar -->
+    <button class="adicionar" onclick="openModalAdicionar()">+</button>
 
-    <div class="modal" id="modalAdicionar">
-        <div class="modal_info">
-            <button class="close_modal" onclick="closeModalAdd()">X</button>
-            <form class="informacaoadd" id="informacaoadd" method="POST">
-                <label for="m-titulo">Titulo</label>
-                <input id="m-titulo" type="text" required />
-
-                <label for="m-reportagem">Reportagem</label>
-                <input id="m-reportagem" type="text" required />
-
-                <label for="m-img">Imagem (ex.: "imagens/imagem.png")</label>
-                <input id="m-img" type="text" required />
-
-                <label for="m-img-nome">Nome da imagem</label>
-
-                <input id="m-img-nome" type="text" required />
-                <button id="salvarCrud" class="salvar crud" name="adicionar" type="submit">Salvar</button>
-            </form>        
+    <!-- Modal de Adicionar Notícia -->
+    <div id="modalAdicionar" class="modal">
+        <div class="modal-conteudo">
+            <button class="fechar" onclick="closeModalAdicionar()">X</button>
+            <form method="POST">
+                <label for="add-titulo">Título</label>
+                <input id="add-titulo" name="titulo" type="text" required>
+                
+                <label for="add-reportagem">Reportagem</label>
+                <input id="add-reportagem" name="reportagem" type="text" required>
+                
+                <label for="add-img">Imagem</label>
+                <input id="add-img" name="img" type="text" required>
+                
+                <label for="add-img-nome">Nome da Imagem</label>
+                <input id="add-img-nome" name="img_nome" type="text" required>
+                
+                <button type="submit" name="adicionar">Salvar</button>
+            </form>
         </div>
     </div>
 
-    
+    <!-- Modal de Editar Notícia -->
     <div id="modalEditar" class="modal">
-        <div class="modalmodal_info">
-            <button class="close_modal" onclick="closeModalEditar()">X</button>
+        <div class="modal-conteudo">
+            <button class="fechar" onclick="closeModalEditar()">X</button>
             <form method="POST">
                 <input type="hidden" id="edit-id" name="id_noticias">
                 
@@ -151,11 +157,10 @@ if (isset($_POST["editar"])) {
                 <input id="edit-img-nome" name="img_nome" type="text" required>
                 
                 <button type="submit" name="editar">Salvar Alterações</button>
-                </form>
-            </div>
+            </form>
         </div>
     </div>
-        <script src="script.js"></script>
 
-    </body>
+    <script type="text/javascript" src="script.js"></script>
+</body>
 </html>
